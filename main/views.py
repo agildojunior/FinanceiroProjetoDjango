@@ -55,13 +55,39 @@ def deslogar(request):
     return redirect('login')
 
 
-# @login_required
-# def receitaAdd(request){
-#     categoria = request.POST.get('categoria')
-#     valor = request.POST.get('valor')
-#     descricao = request.POST.get('descricao')
+@login_required
+def receitaAdd(request):
+    valor = request.POST.get('valor')
+    descricao = request.POST.get('descricao')
+    idcategoria = request.POST.get('categoria')
+    categoria = Categoria.objects.filter( id = idcategoria ).first()
+
+    Receita.objects.create(descricao=descricao, categoria=categoria, valor=valor, user=request.user)
+
+    return redirect('inicio')
 
 
+@login_required
+def despesaAdd(request):
+    valor = request.POST.get('valor')
+    descricao = request.POST.get('descricao')
+    idcategoria = request.POST.get('categoria')
+    categoria = Categoria.objects.filter( id = idcategoria ).first()
 
-#     return redirect('inicio')
-# }
+    Despesa.objects.create(descricao=descricao, categoria=categoria, valor=valor, user=request.user)
+
+    return redirect('inicio')
+
+
+@login_required
+def receitaDel(request, id):
+    receita = Receita.objects.filter(id=id).first()
+    receita.delete()
+    return redirect('inicio')
+
+
+@login_required
+def despesaDel(request, id):
+    despesa = Despesa.objects.filter(id=id).first()
+    despesa.delete()
+    return redirect('inicio')

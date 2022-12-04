@@ -1,0 +1,106 @@
+{% load static %}
+{% block content %}
+<ul class=navegador>
+                
+    <div class=navegadordiv1>
+        <li class=linavimg>
+            <a>
+                <img src="{% static 'img/logonav.png' %}" width='330px' height='95px'/>
+            </a>
+        </li>
+    </div>
+
+    <div class=navegadordiv2>
+        <li class=linav>
+                <a href="#" class=anav>FINANCEIRO</a>
+        </li>
+        <li class=linav>
+                <a href="#" class=anav>GRAFICOS</a>
+        </li>
+        <li class=linav>
+                <a href="{% url 'deslogar' %}" class=anav>DESLOGAR</a>
+        </li>
+    </div>
+    
+</ul>
+{% endblock %}
+
+<style>
+.navegador{
+    display: flex;
+    padding-left: 200px;
+    padding-right: 200px;
+    align-items: center;
+    background: linear-gradient(to top, transparent, rgb(48, 48, 48));
+    opacity: 0.8;
+    height: 25%;
+    width: 100%;
+}
+
+.navegadordiv1{
+    display: flex;
+}
+
+.navegadordiv2{
+    width: 100%;
+    display: flex;
+    height: 33px;
+    text-align: center;
+    justify-content: end;
+}
+
+.linav{
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    justify-content: center;
+}
+
+.linavimg{
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    justify-content: center;
+    padding-top: 3px;
+    padding-right: 10px;
+    cursor: pointer;
+}
+
+.anav{
+    margin: 7px 20px 0px 20px;
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    font-size: 20px;
+    font-weight: 600;
+    transition: 0.3s;
+    text-align: center;
+    justify-content: center;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.50)
+}
+.anav:hover{
+    color: rgb(255, 255, 255);
+}
+
+.anav::after{
+    content: '';
+    background-color: #fffffff1;
+    height: 3px;
+    display: block;
+    width: 10px;
+    box-shadow: 0px 0px 20px #ffffff;
+    transition: 0.3s;
+}
+.anav:hover::after{
+    width: 100%;
+}
+@media (max-width: 1200px) {
+    .navegadordiv1{
+        display: none;
+    }
+    .navegadordiv2{
+        justify-content: center;
+    }
+}
+</style>

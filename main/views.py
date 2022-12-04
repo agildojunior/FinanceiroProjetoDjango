@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from.models import Categoria, Despesa, Receita
 
 
 def cadastro(request):
@@ -41,11 +42,26 @@ def logar(request):
 
 
 @login_required(login_url="/auth/login/")
-def inicio(request):
-    return render(request, 'inicio/inicio.html')
+def inicio(request): 
+    categorias = Categoria.objects.all
+    despesas = Despesa.objects.filter( user = request.user )
+    receitas = Receita.objects.filter( user = request.user )
+    return render(request, 'inicio/inicio.html',{'despesas':despesas,'receitas':receitas,'categorias':categorias})
 
 
 @login_required
 def deslogar(request):
     logout(request)
     return redirect('login')
+
+
+# @login_required
+# def receitaAdd(request){
+#     categoria = request.POST.get('categoria')
+#     valor = request.POST.get('valor')
+#     descricao = request.POST.get('descricao')
+
+
+
+#     return redirect('inicio')
+# }

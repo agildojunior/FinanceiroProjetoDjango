@@ -7,22 +7,185 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript"></script>
+    <script src="https://plentz.github.io/jquery-maskmoney/javascripts/jquery.maskMoney.min.js" type="text/javascript"></script>
 </head>
 <body>
+
+    <!-- Modal Receitas -->
+    <div class="modal fade" id="ModalReceita" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Cadastrar Receita</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="form-label">Descrição</label>
+                            <input type="text" class="form-control" name="descricao" placeholder="Descrição da receita" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Valor</label>
+                            <input type="text" class="form-control" id="valor" name="valor" placeholder="Valor da receita" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Categoria</label>
+                            <select class="form-select" name="categoria" aria-label="Default select example">
+                                {% for categorias in categorias %}
+                                <option value="{{categorias.id}}">{{categorias.nome}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button class="btn btn-primary">Cadastrar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Despesas -->
+    <div class="modal fade" id="ModalDespesas" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Cadastrar Despesa</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label class="form-label">Descrição</label>
+                            <input type="text" class="form-control" name="descricao" placeholder="Descrição da despesa" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Valor</label>
+                            <input type="text" class="form-control" id="valor2" name="valor" placeholder="Valor da despesa" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Categoria</label>
+                            <select class="form-select" name="categoria" aria-label="Default select example">
+                                {% for categorias in categorias %}
+                                <option value="{{categorias.id}}">{{categorias.nome}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button class="btn btn-primary">Cadastrar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <div class="Backgroundimg">
         {% include 'components/navbar.html' %}
         <div class="container-principal">
-            
-            
+            <div class="tabelas">
 
+                <div class="divtabela">
+                    <table class='contenttable'>
+                        <thead>
+                            <tr style="color:rgb(0, 0, 0);">
+                                <th style="text-align: start;">RECEITAS</th>
+                                <th></th><th></th><th></th>
+                                <th style="text-align: end;">
+                                    <a type="button" class="btnadd" data-bs-toggle="modal" data-bs-target="#ModalReceita">
+                                        + Adicionar
+                                    </a>
+                                </th>
+                            </tr>
+                            <tr style="background: linear-gradient(to bottom right, rgb(38, 92, 123), rgb(170, 201, 214));">
+                                <th>#</th>
+                                <th>Categoria</th>
+                                <th>Valor</th>
+                                <th>Descrição</th>
+                                <th>ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for receitas in receitas %}
+                            <tr>
+                                <td>{{receitas.id}}</td>
+                                <td>{{receitas.categoria}}</td>
+                                <td>{{receitas.valor}} R$</td>
+                                <td>{{receitas.descricao}}</td>
+                                <td>
+                                <button type="button" class="btn btn-secondary">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                        <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                                    </svg>
+                                </button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="divtabela">
+                    <table class='contenttable'>
+                        <thead>
+                            <tr style="color:rgb(0, 0, 0);">
+                                
+                                <th style="text-align: start;">DESPESAS</th>
+                                <th></th><th></th><th></th>
+                                <th style="text-align: end;">
+                                    <a type="button" class="btnadd" data-bs-toggle="modal" data-bs-target="#ModalDespesas">
+                                        + Adicionar
+                                    </a>
+                                </th>
+                            </tr>
+                            <tr style="background: linear-gradient(to bottom right, rgb(38, 92, 123), rgb(170, 201, 214));">
+                                <th>#</th>
+                                <th>Categoria</th>
+                                <th>Valor</th>
+                                <th>Descrição</th>
+                                <th>ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for despesas in despesas %}
+                            <tr>
+                                <td>{{despesas.id}}</td>
+                                <td>{{despesas.categoria}}</td>
+                                <td>{{despesas.valor}} R$</td>
+                                <td>{{despesas.descricao}}</td>
+                                <td>
+                                <button type="button" class="btn btn-secondary">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                        <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                                    </svg>
+                                </button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
         </div>
     </div>
 </body>
 <style>
+.divprincipal{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    justify-content: center;
+    text-align: center;
+}
 .Backgroundimg{
     margin: 0;
     padding: 0;
-    background: url("{% static 'img/background.png' %}") no-repeat;
+    background: url("{% static 'img/background2.png' %}") no-repeat;
     background-size: cover;
     background-position: center center;
     font-family: sans-serif;
@@ -32,6 +195,7 @@
     width: 100vw;
     height: 100vh;
     position: fixed;
+    overflow-y: scroll;
 }
 .container-principal{
     margin: 0;
@@ -54,7 +218,97 @@
         border-radius: 0px;
         width: 100%;
     }
+    .divtabela{
+        width: 100% !important;
+        margin-bottom: 20px;
+    }
+    .tabelas{
+        width: 100%;
+        display: flex;
+        flex-direction: column; 
+    }
 }
+
+
+/*---------------------------------- inicio tabela -------------------------------*/
+.contenttable {
+    border-collapse: collapse;
+    font-size: 0.9em;
+    width: 100%;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+}
+
+.contenttable thead tr {
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.contenttable th,
+.contenttable td {
+    padding: 10px 0px;
+    
+}
+
+.contenttable tbody tr {
+    border-bottom: 1px solid #dbdbdb;
+    background-color: white;
+}
+
+.contenttable tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.contenttable tbody tr:last-of-type {
+    border-bottom: 2px solid;
+    border-bottom-color: rgb(202, 202, 202);
+}
+
+.contenttable tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
+}
+.tabelas{
+    width: 100%; 
+    display: flex; 
+    justify-content: space-around
+}
+.divtabela{
+    width: 470px;
+}
+.btnadd{
+    font-size: 17px;
+    text-decoration: solid;
+    color: white;
+    background-color: #419cd4;
+    border-radius: 5px;
+    padding: 5px;
+}
+.btnadd:hover{
+    color: white;
+    background-color: #17bfe5;
+}
+/*---------------------------------- fim tabela -------------------------------*/
 </style>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+
+<script>
+    jQuery(function() {  
+        jQuery("#valor").maskMoney({
+            prefix:'R$ ', 
+            thousands:'.', 
+            decimal:','
+        })
+    });
+    jQuery(function() {  
+        jQuery("#valor2").maskMoney({
+            prefix:'R$ ', 
+            thousands:'.', 
+            decimal:','
+        })
+    });
+</script>
+    
+
 </html>

@@ -80,6 +80,15 @@ def despesaAdd(request):
 
 
 @login_required
+def categoriaAdd(request):
+    categoria = request.POST.get('categoria')
+
+    Categoria.objects.create(nome=categoria)
+
+    return redirect('inicio')
+
+
+@login_required
 def receitaDel(request, id):
     receita = Receita.objects.filter(id=id).first()
     receita.delete()
@@ -90,4 +99,11 @@ def receitaDel(request, id):
 def despesaDel(request, id):
     despesa = Despesa.objects.filter(id=id).first()
     despesa.delete()
+    return redirect('inicio')
+
+
+@login_required
+def categoriaDel(request, id):
+    categoria = Categoria.objects.filter(id=id).first()
+    categoria.delete()
     return redirect('inicio')

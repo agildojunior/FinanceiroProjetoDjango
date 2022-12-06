@@ -49,6 +49,13 @@ def inicio(request):
     return render(request, 'inicio/inicio.html',{'despesas':despesas,'receitas':receitas,'categorias':categorias})
 
 
+def grafico(request): 
+    categorias = Categoria.objects.all
+    despesas = Despesa.objects.filter( user = request.user )
+    receitas = Receita.objects.filter( user = request.user )
+    return render(request, 'grafico/grafico.html',{'despesas':despesas,'receitas':receitas,'categorias':categorias})
+
+
 @login_required
 def deslogar(request):
     logout(request)

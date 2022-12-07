@@ -142,3 +142,33 @@ def categoriaDel(request, id):
     categoria = Categoria.objects.filter(id=id).first()
     categoria.delete()
     return redirect('inicio')
+
+
+@login_required
+def receitaEdit(request, id):
+    receita = Receita.objects.filter(id=id).first()
+    categorias = Categoria.objects.all
+    return render(request, 'editar/editReceitas.html',{'receita':receita,'categorias':categorias})
+@login_required
+def receitaEdit2(request, id):
+    idcategoria = request.POST.get('categoria')
+    valor = float(re.sub('[^0-9]', '', request.POST.get('valor')))/100
+    descricao = request.POST.get('descricao')
+    categoria = Categoria.objects.filter( id = idcategoria ).first()
+    Receita.objects.filter(id=id).update(valor=valor,descricao=descricao,categoria=categoria)
+    return redirect('inicio')
+
+
+@login_required
+def despesaEdit(request, id):
+    despesa = Despesa.objects.filter(id=id).first()
+    categorias = Categoria.objects.all
+    return render(request, 'editar/editDespesas.html',{'despesa':despesa,'categorias':categorias})
+@login_required
+def despesaEdit2(request, id):
+    idcategoria = request.POST.get('categoria')
+    valor = float(re.sub('[^0-9]', '', request.POST.get('valor')))/100
+    descricao = request.POST.get('descricao')
+    categoria = Categoria.objects.filter( id = idcategoria ).first()
+    Despesa.objects.filter(id=id).update(valor=valor,descricao=descricao,categoria=categoria)
+    return redirect('inicio')

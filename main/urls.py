@@ -13,4 +13,8 @@ urlpatterns = [
     path('receitaDel/<int:id>', views.receitaDel, name='receitaDel'),
     path('despesaDel/<int:id>', views.despesaDel, name='despesaDel'),
     path('categoriaDel/<int:id>', views.categoriaDel, name='categoriaDel'),
+    path('receitaEdit/<int:id>', views.receitaEdit, name='receitaEdit'),
+    path('receitaEdit2/<int:id>', views.receitaEdit2, name='receitaEdit2'),
+    path('despesaEdit/<int:id>', views.despesaEdit, name='despesaEdit'),
+    path('despesaEdit2/<int:id>', views.despesaEdit2, name='despesaEdit2'),
 ]

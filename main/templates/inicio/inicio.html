@@ -114,89 +114,151 @@
     <div class="Backgroundimg">
         {% include 'components/navbar.html' %}
         <div class="container-principal">
-            <div class="tabelas">
-
-                <div class="divtabela">
-                    <table class='contenttable'>
-                        <thead>
-                            <tr style="color:rgb(0, 0, 0);">
-                                <th style="text-align: start;">RECEITAS</th>
-                                <th></th><th></th><th></th>
-                                <th style="text-align: end;">
-                                    <a type="button" class="btnadd" data-bs-toggle="modal" data-bs-target="#ModalReceita">
-                                        + Adicionar
-                                    </a>
-                                </th>
-                            </tr>
-                            <tr style="background: linear-gradient(to bottom right, rgb(38, 92, 123), rgb(170, 201, 214));">
-                                <th>#</th>
-                                <th>Categoria</th>
-                                <th>Valor</th>
-                                <th>Descrição</th>
-                                <th>ações</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for receitas in receitas %}
-                            <tr>
-                                <td>#{{receitas.id}}</td>
-                                <td>{{receitas.categoria}}</td>
-                                <td>R$ {{receitas.valor}}</td>
-                                <td>{{receitas.descricao}}</td>
-                                <td>
-                                <a href="/auth/receitaDel/{{receitas.id}}" type="button" class="btn btn-secondary">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
-                                        <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
-                                    </svg>
-                                </a>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
+            <div class="cardsfin">
+                <div class="cardFinancas" style="border-left: solid 2px rgb(102, 215, 65);">
+                    <h2>Receitas</h2>
+                    <p>Totalizador de receitas</p>
+                    <div class="cardFinancasContador">
+                        <h2>R${{totalreceita}}</h2>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="rgb(102, 215, 65)" class="bi bi-cash-coin" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M11 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8zm5-4a5 5 0 1 1-10 0 5 5 0 0 1 10 0z"/>
+                            <path d="M9.438 11.944c.047.596.518 1.06 1.363 1.116v.44h.375v-.443c.875-.061 1.386-.529 1.386-1.207 0-.618-.39-.936-1.09-1.1l-.296-.07v-1.2c.376.043.614.248.671.532h.658c-.047-.575-.54-1.024-1.329-1.073V8.5h-.375v.45c-.747.073-1.255.522-1.255 1.158 0 .562.378.92 1.007 1.066l.248.061v1.272c-.384-.058-.639-.27-.696-.563h-.668zm1.36-1.354c-.369-.085-.569-.26-.569-.522 0-.294.216-.514.572-.578v1.1h-.003zm.432.746c.449.104.655.272.655.569 0 .339-.257.571-.709.614v-1.195l.054.012z"/>
+                            <path d="M1 0a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h4.083c.058-.344.145-.678.258-1H3a2 2 0 0 0-2-2V3a2 2 0 0 0 2-2h10a2 2 0 0 0 2 2v3.528c.38.34.717.728 1 1.154V1a1 1 0 0 0-1-1H1z"/>
+                            <path d="M9.998 5.083 10 5a2 2 0 1 0-3.132 1.65 5.982 5.982 0 0 1 3.13-1.567z"/>
+                        </svg>
+                    </div>
                 </div>
-
-                <div class="divtabela">
-                    <table class='contenttable'>
-                        <thead>
-                            <tr style="color:rgb(0, 0, 0);">
-                                
-                                <th style="text-align: start;">DESPESAS</th>
-                                <th></th><th></th><th></th>
-                                <th style="text-align: end;">
-                                    <a type="button" class="btnadd" data-bs-toggle="modal" data-bs-target="#ModalDespesas">
-                                        + Adicionar
-                                    </a>
-                                </th>
-                            </tr>
-                            <tr style="background: linear-gradient(to bottom right, rgb(38, 92, 123), rgb(170, 201, 214));">
-                                <th>#</th>
-                                <th>Categoria</th>
-                                <th>Valor</th>
-                                <th>Descrição</th>
-                                <th>ações</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for despesas in despesas %}
-                            <tr>
-                                <td>#{{despesas.id}}</td>
-                                <td>{{despesas.categoria}}</td>
-                                <td>R$ {{despesas.valor}}</td>
-                                <td>{{despesas.descricao}}</td>
-                                <td>
-                                <a href="/auth/despesaDel/{{despesas.id}}" type="button" class="btn btn-secondary">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
-                                        <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
-                                    </svg>
-                                </a>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
+                <div class="cardFinancas" style="border-left: solid 2px rgb(235, 89, 75);">
+                    <h2>Despesas</h2>
+                    <p>Totalizador de despesas</p>
+                    <div class="cardFinancasContador">
+                        <h2>R${{totaldespesa}}</h2>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="rgb(235, 89, 75)" class="bi bi-arrow-down-circle" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v5.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V4.5z"/>
+                        </svg>
+                    </div>
                 </div>
+                <div class="cardFinancas">
+                    <h2>Saldo</h2>
+                    <p>Totalizador do Saldo</p>
+                    <div class="cardFinancasContador">
+                        <h2>R${{saldo}}</h2>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#419cd4" class="bi bi-bar-chart" viewBox="0 0 16 16">
+                            <path d="M4 11H2v3h2v-3zm5-4H7v7h2V7zm5-5v12h-2V2h2zm-2-1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1h-2zM6 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7zm-5 4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-3z"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="divtabela" style="width: 100%; padding-top: 10px;">
+                <table class='contenttable'>
+                    <thead>
+                        <tr style="color:rgb(0, 0, 0);">
+                            <th style="text-align: start;">RECEITAS</th>
+                            <th></th><th></th><th></th>
+                            <th style="text-align: end;">
+                                <a style="background: linear-gradient(to bottom right, rgb(68, 196, 57), rgb(170, 214, 190));" type="button" class="btnadd" data-bs-toggle="modal" data-bs-target="#ModalReceita">
+                                    + Adicionar
+                                </a>
+                            </th>
+                        </tr>
+                        <tr style="background: linear-gradient(to bottom right, rgb(68, 196, 57), rgb(170, 214, 190));">
+                            <th>#</th>
+                            <th>Categoria</th>
+                            <th>Valor</th>
+                            <th>Descrição</th>
+                            <th>ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for receitas in receitas %}
+                        <tr>
+                            <td>#{{receitas.id}}</td>
+                            <td>{{receitas.categoria}}</td>
+                            <td>R$ {{receitas.valor}}</td>
+                            <td>{{receitas.descricao}}</td>
+                            <td>
+                            <a href="/auth/receitaDel/{{receitas.id}}" type="button" class="btn btn-secondary">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                    <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                                </svg>
+                            </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div class="pagination">
+                    <span class="step-links">
+                        {% if receitas.has_previous %}
+                            <a class="btn btn-secondary" href="?page=1">&laquo; Primeira Pagina</a>
+                            <a class="btn btn-secondary" href="?page={{ receitas.previous_page_number }}">Anterior</a>
+                        {% endif %}
+                        <span class="btn btn-secondary">
+                            Page {{ receitas.number }} of {{ receitas.paginator.num_pages }}.
+                        </span>
+                        {% if receitas.has_next %}
+                            <a class="btn btn-secondary" href="?page={{ receitas.next_page_number }}">Proxima</a>
+                            <a class="btn btn-secondary" href="?page={{ receitas.paginator.num_pages }}">Ultima Pagina &raquo;</a>
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
 
+            <div class="divtabela" style="width: 100%; padding-top: 10px;">
+                <table class='contenttable'>
+                    <thead>
+                        <tr style="color:rgb(0, 0, 0);">
+                            
+                            <th style="text-align: start;">DESPESAS</th>
+                            <th></th><th></th><th></th>
+                            <th style="text-align: end;">
+                                <a style="background: linear-gradient(to bottom right, rgb(123, 56, 38), rgb(214, 177, 170));" type="button" class="btnadd" data-bs-toggle="modal" data-bs-target="#ModalDespesas">
+                                    + Adicionar
+                                </a>
+                            </th>
+                        </tr>
+                        <tr style="background: linear-gradient(to bottom right, rgb(123, 56, 38), rgb(214, 177, 170));">
+                            <th>#</th>
+                            <th>Categoria</th>
+                            <th>Valor</th>
+                            <th>Descrição</th>
+                            <th>ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for despesas in despesas %}
+                        <tr>
+                            <td>#{{despesas.id}}</td>
+                            <td>{{despesas.categoria}}</td>
+                            <td>R$ {{despesas.valor}}</td>
+                            <td>{{despesas.descricao}}</td>
+                            <td>
+                            <a href="/auth/despesaDel/{{despesas.id}}" type="button" class="btn btn-secondary">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                                    <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                                </svg>
+                            </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div class="pagination">
+                    <span class="step-links">
+                        {% if despesas.has_previous %}
+                            <a class="btn btn-secondary" href="?page=1">&laquo; Primeira Pagina</a>
+                            <a class="btn btn-secondary" href="?page={{ despesas.previous_page_number }}">Anterior</a>
+                        {% endif %}
+                        <span class="btn btn-secondary" >
+                            Page {{ despesas.number }} of {{ despesas.paginator.num_pages }}.
+                        </span>
+                        {% if despesas.has_next %}
+                            <a class="btn btn-secondary" href="?page={{ despesas.next_page_number }}">Proxima</a>
+                            <a class="btn btn-secondary" href="?page={{ despesas.paginator.num_pages }}">Ultima Pagina &raquo;</a>
+                        {% endif %}
+                    </span>
+                </div>
             </div>
 
             <div class="divtabela" style="width: 100%; padding-top: 10px;">
@@ -206,7 +268,7 @@
                             <th style="text-align: start;">CATEGORIAS</th>
                             <th></th>
                             <th style="text-align: end;">
-                                <a type="button" class="btnadd" data-bs-toggle="modal" data-bs-target="#ModalCategoria">
+                                <a style="background: linear-gradient(to bottom right, rgb(38, 92, 123), rgb(170, 201, 214));" type="button" class="btnadd" data-bs-toggle="modal" data-bs-target="#ModalCategoria">
                                     + Adicionar
                                 </a>
                             </th>
@@ -239,6 +301,38 @@
     </div>
 </body>
 <style>
+.cardsfin{
+    width: 100%; 
+    display: flex; 
+    justify-content: space-between;
+}
+.cardFinancas{
+    border-radius: 7px;
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    padding: 10px;
+    width: 32%;
+    height: 150px;
+    text-align:left;
+    -webkit-box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 0.3); 
+    box-shadow: 0px 0px 5px 3px rgba(0,0,0,0.3);
+    border-left: solid 2px #419cd4;
+}
+.cardFinancas h2{
+    font-size: 25px;
+    font-weight: bold;
+}
+.cardFinancas p{
+    font-size: 12px;
+    font-weight: bold;
+    color: #a2a2a2;
+}
+.cardFinancasContador{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
 .divprincipal{
     margin: 0;
     padding: 0;
@@ -333,11 +427,6 @@
     font-weight: bold;
     color: #009879;
 }
-.tabelas{
-    width: 100%; 
-    display: flex; 
-    justify-content: space-around
-}
 .divtabela{
     width: 470px;
 }
@@ -350,7 +439,7 @@
     padding: 5px;
 }
 .btnadd:hover{
-    color: white;
+    color: rgb(210, 210, 210);
     background-color: #17bfe5;
 }
 /*---------------------------------- fim tabela -------------------------------*/

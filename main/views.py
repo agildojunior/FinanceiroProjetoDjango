@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from.models import Categoria, Despesa, Receita
+from django.core.paginator import Paginator
+from django.shortcuts import render
 
 
 def cadastro(request):
@@ -46,9 +48,27 @@ def inicio(request):
     categorias = Categoria.objects.all
     despesas = Despesa.objects.filter( user = request.user )
     receitas = Receita.objects.filter( user = request.user )
-    return render(request, 'inicio/inicio.html',{'despesas':despesas,'receitas':receitas,'categorias':categorias})
+    totalreceita = 0
+    totaldespesa = 0
+    for receit in receitas:
+        totalreceita += receit.valor
+    for despes in despesas:
+        totaldespesa += despes.valor
+        
+    # --- paginação ---
+    paginator1 = Paginator(receitas, 7)
+    paginator2 = Paginator(despesas, 7)
+    
+    page_number = request.GET.get('page')
+
+    page_obj1 = paginator1.get_page(page_number)
+    page_obj2 = paginator2.get_page(page_number)
+    
+    # --- /paginação ---
+    return render(request, 'inicio/inicio.html',{'despesas':page_obj2,'receitas':page_obj1,'categorias':categorias,'totalreceita':totalreceita,'totaldespesa':totaldespesa,'saldo':totalreceita-totaldespesa})
 
 
+@login_required(login_url="/auth/login/")
 def grafico(request): 
     categorias = Categoria.objects.all
     despesas = Despesa.objects.filter( user = request.user )

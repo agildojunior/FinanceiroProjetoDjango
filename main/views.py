@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from.models import Categoria, Despesa, Receita
 from django.core.paginator import Paginator
 from django.shortcuts import render
+import re
 
 
 def cadastro(request):
@@ -73,7 +74,14 @@ def grafico(request):
     categorias = Categoria.objects.all
     despesas = Despesa.objects.filter( user = request.user )
     receitas = Receita.objects.filter( user = request.user )
-    return render(request, 'grafico/grafico.html',{'despesas':despesas,'receitas':receitas,'categorias':categorias})
+    totalreceita = 0
+    totaldespesa = 0
+    for receit in receitas:
+        totalreceita += receit.valor
+    for despes in despesas:
+        totaldespesa += despes.valor
+        
+    return render(request, 'grafico/grafico.html',{'despesas':despesas,'receitas':receitas,'categorias':categorias,'totalreceita':totalreceita,'totaldespesa':totaldespesa,'saldo':totalreceita-totaldespesa})
 
 
 @login_required
@@ -84,7 +92,7 @@ def deslogar(request):
 
 @login_required
 def receitaAdd(request):
-    valor = request.POST.get('valor')
+    valor = float(re.sub('[^0-9]', '', request.POST.get('valor')))/100
     descricao = request.POST.get('descricao')
     idcategoria = request.POST.get('categoria')
     categoria = Categoria.objects.filter( id = idcategoria ).first()
@@ -96,7 +104,7 @@ def receitaAdd(request):
 
 @login_required
 def despesaAdd(request):
-    valor = request.POST.get('valor')
+    valor = float(re.sub('[^0-9]', '', request.POST.get('valor')))/100
     descricao = request.POST.get('descricao')
     idcategoria = request.POST.get('categoria')
     categoria = Categoria.objects.filter( id = idcategoria ).first()

@@ -14,6 +14,7 @@ class Receita(models.Model):
     descricao = models.CharField(max_length=100)
     valor = models.FloatField()
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    data = models.DateField(auto_now_add=True)
 
 
 class Despesa(models.Model):
@@ -21,4 +22,5 @@ class Despesa(models.Model):
     descricao = models.CharField(max_length=100)
     valor = models.FloatField()
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    data = models.DateField(auto_now_add=True, null=True, blank=True)
 

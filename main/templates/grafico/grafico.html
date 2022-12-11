@@ -64,18 +64,18 @@
                 data: {
                     labels: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
                     datasets: [
-                    {
-                        label: 'Receitas',
-                        backgroundColor: ['rgb(102, 215, 65)'],
-                        data: [150, 190, 30, 50, 20, 30 ,220, 19, 30, 50, 20, 200],
-                        borderWidth: 1.
-                    },
-                    {
-                        label: 'Despesas',
-                        backgroundColor: ['rgb(235, 89, 75)'],
-                        data: [100, 120, 30, 50, 20, 30, 140, 19, 30, 50, 20, 120],
-                        borderWidth: 1.
-                    }
+                        {
+                            label: 'Receitas',
+                            backgroundColor: ['rgb(102, 215, 65)'],
+                            data: [{% for item in mesReceita %}{{ item }},{% endfor %}],
+                            borderWidth: 1.
+                        },
+                        {
+                            label: 'Despesas',
+                            backgroundColor: ['rgb(235, 89, 75)'],
+                            data: [{% for item in mesDespesa %}{{ item }},{% endfor %}],
+                            borderWidth: 1.
+                        }
                     ]
                 },
                 options: {

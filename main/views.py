@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from.models import Categoria, Despesa, Receita
 from django.core.paginator import Paginator
 from django.shortcuts import render
+import datetime as dt
 import re
 
 
@@ -106,19 +107,32 @@ def grafico(request):
     categorias = Categoria.objects.all
     despesas = Despesa.objects.filter( user = request.user )
     receitas = Receita.objects.filter( user = request.user )
+    
     totalreceita = 0
     totaldespesa = 0
+    mesReceita = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+    mesDespesa = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+
     for receit in receitas:
         totalreceita += receit.valor
+        for i in range(12):
+            if receit.data.month == i+1:
+                mesReceita[i] += receit.valor
     for despes in despesas:
         totaldespesa += despes.valor
+        for i in range(12):
+            if despes.data.month == i+1:
+                mesDespesa[i] += despes.valor
+    
     context = {
         'despesas':despesas,
         'receitas':receitas,
         'categorias':categorias,
         'totalreceita':totalreceita,
         'totaldespesa':totaldespesa,
-        'saldo':totalreceita-totaldespesa
+        'saldo':totalreceita-totaldespesa,
+        'mesReceita':mesReceita,
+        'mesDespesa':mesDespesa,
     }
     return render(request, 'grafico/grafico.html',context)
 

@@ -28,6 +28,30 @@ def cadastro(request):
         return render(request, 'login/login.html')
 
 
+@login_required
+def senhaEdit(request):
+    senha = request.POST.get('senha')
+    user = request.user
+    user.set_password(senha)
+    user.save()
+    return redirect('perfil')
+
+
+@login_required
+def userEdit(request):
+    user = request.user
+    username = request.POST.get('username')
+    # --- Verifica se o username ja existe ---
+    username2 = User.objects.filter(username=username).first()
+    if username != user.username:
+        if username2:
+            return HttpResponse('Esse usuario esta indisponivel')
+    # ----------------------------------------
+    email= request.POST.get('email')
+    User.objects.filter(id=user.id).update(username=username,email=email)
+    return redirect('inicio')
+
+
 def logar(request):
     if request.method == 'GET':
         return render(request, 'login/login.html')
@@ -82,6 +106,13 @@ def grafico(request):
         totaldespesa += despes.valor
         
     return render(request, 'grafico/grafico.html',{'despesas':despesas,'receitas':receitas,'categorias':categorias,'totalreceita':totalreceita,'totaldespesa':totaldespesa,'saldo':totalreceita-totaldespesa})
+
+
+@login_required(login_url="/auth/login/")
+def editperfil(request): 
+    user = request.user
+    return render(request, 'perfil/perfil.html',{'user':user})
+
 
 
 @login_required

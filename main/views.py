@@ -90,7 +90,15 @@ def inicio(request):
     page_obj2 = paginator2.get_page(page_number)
     
     # --- /paginação ---
-    return render(request, 'inicio/inicio.html',{'despesas':page_obj2,'receitas':page_obj1,'categorias':categorias,'totalreceita':totalreceita,'totaldespesa':totaldespesa,'saldo':totalreceita-totaldespesa})
+    context = {
+        'despesas':page_obj2,
+        'receitas':page_obj1,
+        'categorias':categorias,
+        'totalreceita':totalreceita,
+        'totaldespesa':totaldespesa,
+        'saldo':totalreceita-totaldespesa
+    }
+    return render(request, 'inicio/inicio.html',context)
 
 
 @login_required(login_url="/auth/login/")
@@ -104,15 +112,21 @@ def grafico(request):
         totalreceita += receit.valor
     for despes in despesas:
         totaldespesa += despes.valor
-        
-    return render(request, 'grafico/grafico.html',{'despesas':despesas,'receitas':receitas,'categorias':categorias,'totalreceita':totalreceita,'totaldespesa':totaldespesa,'saldo':totalreceita-totaldespesa})
+    context = {
+        'despesas':despesas,
+        'receitas':receitas,
+        'categorias':categorias,
+        'totalreceita':totalreceita,
+        'totaldespesa':totaldespesa,
+        'saldo':totalreceita-totaldespesa
+    }
+    return render(request, 'grafico/grafico.html',context)
 
 
 @login_required(login_url="/auth/login/")
 def editperfil(request): 
     user = request.user
     return render(request, 'perfil/perfil.html',{'user':user})
-
 
 
 @login_required

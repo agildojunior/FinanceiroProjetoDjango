@@ -4,9 +4,6 @@ from django.contrib.auth.models import User
 
 class Categoria(models.Model):
     nome = models.CharField(max_length=30)
-    
-    def __str__(self):
-        return str(self.nome)
 
 
 class Receita(models.Model):
